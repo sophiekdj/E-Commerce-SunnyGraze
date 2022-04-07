@@ -8,17 +8,19 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { StoreProvider } from "./utils/GlobalState";
-import AuthService from "./utils/auth";
+import AuthService from "./utils/auth.js";
 
 import Home from "./pages/Home";
-// import Detail from "./pages/Detail";
-// import NoMatch from "./pages/NoMatch";
+import AboutUs from "./pages/AboutUs";
+import AppBar from "./components/AppBar";
+
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Nav from "./components/Nav";
+
+import Theme from "./styles/Theme";
+
 import Success from "./pages/Success";
 import Footer from "./components/Footer";
-// import OrderHistory from "./pages/OrderHistory";
 
 const httpLink = createHttpLink({
   uri: "/graphql",
@@ -44,18 +46,20 @@ function App() {
     <ApolloProvider client={client}>
       <Router>
         <div>
-          <StoreProvider>
-            <Nav />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route exact path="/login" component={Login} />
-              <Route exact path="/signup" component={Signup} />
-              <Route exact path="/success" component={Success} />
-              {/* <Route exact path="/orderHistory" component={OrderHistory} />
+          <ThemeProvider theme={Theme}>
+            <StoreProvider>
+              <AppBar />
+              <Switch>
+                <Route exact path="/" element={Home} />
+                <Route exact path="/login" element={Login} />
+                <Route exact path="/signup" element={Signup} />
+                <Route exact path="/success" element={Success} />
+                {/* <Route exact path="/orderHistory" component={OrderHistory} />
               <Route exact path="/products/:id" component={Detail} />
-              <Route component={NoMatch} /> */}
-            </Switch>
-          </StoreProvider>
+              <Route element={<NoMatch />} */}
+              </Switch>
+            </StoreProvider>
+          </ThemeProvider>
         </div>
       </Router>
     </ApolloProvider>

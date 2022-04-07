@@ -6,7 +6,7 @@ const { typeDefs, resolvers } = require("./schemas");
 const { authMiddleware } = require("./utils/auth");
 const db = require("./config/connection");
 
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 3002;
 const app = express();
 
 const server = new ApolloServer({
@@ -17,18 +17,29 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
+// let apolloServer = null;
+
+// async function startServer() {
+//   apolloServer = new ApolloServer({
+//     typeDefs,
+//     resolvers,
+//     context: authMiddleware,
+//   });
+//   await apolloServer.start();
+//   apolloServer.applyMiddleware({ app });
+// }
+
+// startServer();
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-// Serve up static assets
-app.use("/images", express.static(path.join(__dirname, "../client/images")));
-
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/build")));
+  app.use(express.static(path.join(__dirname, "../client/src/pages")));
 }
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../client/build/index.html"));
+  res.sendFile(path.join(__dirname, "../client/src/pages/Home.js"));
 });
 
 db.once("open", () => {
