@@ -51,7 +51,7 @@ function App() {
               <AppBar />
               <Switch>
                 <Route exact path="/" element={Home} />
-                <Route exact path="/login" element={Login} />
+                <Route exact path="/login" component={Login} />
                 <Route exact path="/signup" element={Signup} />
                 <Route exact path="/success" element={Success} />
                 {/* <Route exact path="/orderHistory" component={OrderHistory} />

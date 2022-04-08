@@ -17,19 +17,19 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-// let apolloServer = null;
+let apolloServer = null;
 
-// async function startServer() {
-//   apolloServer = new ApolloServer({
-//     typeDefs,
-//     resolvers,
-//     context: authMiddleware,
-//   });
-//   await apolloServer.start();
-//   apolloServer.applyMiddleware({ app });
-// }
+async function startServer() {
+  apolloServer = new ApolloServer({
+    typeDefs,
+    resolvers,
+    context: authMiddleware,
+  });
+  await apolloServer.start();
+  apolloServer.applyMiddleware({ app });
+}
 
-// startServer();
+startServer();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
